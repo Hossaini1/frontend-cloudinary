@@ -4,7 +4,7 @@ import { useState } from "react";
 const CreateProductForm = () => {
 
 
-  const baseUrl = process.env.VITE_API_URL;
+  const baseUrl = import.meta.env.VITE_API_URL;
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
