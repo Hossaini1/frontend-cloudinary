@@ -1,11 +1,10 @@
 import { useState } from "react";
-import 'dotenv/config'
+
 
 const CreateProductForm = () => {
 
-  // const baseUrl = "http://localhost:3000";
 
-  const baseUrl = process.env.API_URL;
+  const baseUrl = process.env.VITE_API_URL;
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
