@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <ToastContainer
       position="top-center"
-      autoClose={3000}
+      autoClose={5000}
       themes="light"
       transition={Bounce}
     />

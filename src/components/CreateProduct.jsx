@@ -6,7 +6,7 @@ const CreateProductForm = () => {
 
 
   const baseUrl = import.meta.env.VITE_API_URL;
-  
+
   // const baseUrl = "http://localhost:3000";
 
   const [name, setName] = useState("");
@@ -101,14 +101,14 @@ const CreateProductForm = () => {
     if (response?.message) {
       toast.success(response.message, {
         position: 'top-center',
-        autoClose: 3000,
+        autoClose: 5000,
         closeOnClick: true,
       });
       // setMessage(response.message);
     } else {
       toast.error('Failed to create product. Please try again.', {
         position: 'top-center',
-        autoClose: 3000,
+        autoClose: 5000,
         closeOnClick: true,
       });
     }
