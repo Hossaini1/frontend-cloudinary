@@ -5,14 +5,14 @@ import { useState } from "react";
 
 const themes = {
   light: "light",
-  dark: "dark",
+  luxury: "luxury",
 };
 
 const ThemeToggler = () => {
   const [theme, setTheme] = useState(themes.light);
 
   const handleThemeToggle = () => {
-    const newTheme = theme === themes.light ? themes.dark : themes.light;
+    const newTheme = theme === themes.light ? themes.luxury : themes.light;
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme",newTheme)
   };

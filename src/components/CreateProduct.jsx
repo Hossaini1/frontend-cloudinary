@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 
 const CreateProductForm = () => {
 
 
-  const baseUrl = import.meta.env.VITE_API_URL;
+  // const baseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = "http://localhost:3000";
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -95,6 +97,11 @@ const CreateProductForm = () => {
 
     const response = await createProducts(baseUrl, productData);
 
+    toast.success(response.message,{
+      position: "top-center",
+      autoClose: 5000,
+      closeOnClick: true,
+      })
     setMessage(response.message);
 
     // Reset the image URL
@@ -109,6 +116,7 @@ const CreateProductForm = () => {
 
   return (
     <>
+  
       <>
         <h1 className="mb-12 text-center text-3xl font-bold uppercase text-primary">
           Add a Product
