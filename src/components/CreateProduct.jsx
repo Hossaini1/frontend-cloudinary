@@ -5,13 +5,14 @@ import { toast } from "react-toastify";
 const CreateProductForm = () => {
 
 
-  // const baseUrl = import.meta.env.VITE_API_URL;
-  const baseUrl = "http://localhost:3000";
+  const baseUrl = import.meta.env.VITE_API_URL;
+  
+  // const baseUrl = "http://localhost:3000";
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [message, setMessage] = useState(null);
+  // const [message, setMessage] = useState(null);
   const [errors, setErrors] = useState({});
 
   const validateForm = () => {
@@ -97,12 +98,20 @@ const CreateProductForm = () => {
 
     const response = await createProducts(baseUrl, productData);
 
-    toast.success(response.message,{
-      position: "top-center",
-      autoClose: 5000,
-      closeOnClick: true,
-      })
-    setMessage(response.message);
+    if (response?.message) {
+      toast.success(response.message, {
+        position: 'top-center',
+        autoClose: 3000,
+        closeOnClick: true,
+      });
+      // setMessage(response.message);
+    } else {
+      toast.error('Failed to create product. Please try again.', {
+        position: 'top-center',
+        autoClose: 3000,
+        closeOnClick: true,
+      });
+    }
 
     // Reset the image URL
     setImageUrl("");
@@ -121,9 +130,9 @@ const CreateProductForm = () => {
         <h1 className="mb-12 text-center text-3xl font-bold uppercase text-primary">
           Add a Product
         </h1>
-        {message && (
+        {/* {message && (
           <p className="mt-3 text-xs font-bold text-green-500">{message}</p>
-        )}
+        )} */}
       </>
 
       <form onSubmit={handleFormSubmit} className="m-x-auto w-full">
@@ -163,7 +172,13 @@ const CreateProductForm = () => {
                 </p>
               )}
             </div>
+
+          <button type="submit" className="btn btn-primary mt-3">
+          Submit
+        </button>
           </div>
+
+
           <div className="lg:w-1/2">
             <div className="form-control w-full">
               <label className="label" htmlFor="image">
@@ -190,9 +205,7 @@ const CreateProductForm = () => {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-primary mt-3">
-          Submit
-        </button>
+      
       </form>
     </>
   );
