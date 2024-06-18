@@ -193,7 +193,7 @@ const CreateProductForm = () => {
           </div>
 
 
-          <div className="lg:w-1/2  bg-white" >
+          <div className="lg:w-1/2 " >
             <div className="form-control w-full   ">
               <label className="label" htmlFor="image">
                 <span className="label-text mb-3 ">Upload an Image:</span>
