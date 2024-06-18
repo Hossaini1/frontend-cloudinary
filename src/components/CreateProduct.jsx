@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { ImSpinner9 } from "react-icons/im";
 
 
 const CreateProductForm = () => {
@@ -14,6 +15,7 @@ const CreateProductForm = () => {
   const [imageUrl, setImageUrl] = useState("");
   // const [message, setMessage] = useState(null);
   const [errors, setErrors] = useState({});
+  const [loading,setLoading]=useState(false)
 
   const validateForm = () => {
     const newErrors = {};
@@ -54,11 +56,13 @@ const CreateProductForm = () => {
       (imageFile.type === "image/png" || imageFile.type === "image/jpeg") &&
       imageFile.size <= 5000000
     ) {
+      // setLoading(true)
       const readFile = new FileReader();
       readFile.readAsDataURL(imageFile);
       readFile.onloadend = () => {
         setImageUrl(readFile.result);
         setErrors((prevErrors) => ({ ...prevErrors, image: null }));
+        // setLoading(false)
       };
     } else {
       e.target.value = null;
@@ -94,9 +98,12 @@ const CreateProductForm = () => {
       description,
       image: imageUrl,
     };
+    setLoading(true)
     console.log("Form data: ", productData); // log the form data
 
     const response = await createProducts(baseUrl, productData);
+    setLoading(false)
+    
 
     if (response?.message) {
       toast.success(response.message, {
@@ -121,6 +128,7 @@ const CreateProductForm = () => {
     setName("");
     setDescription("");
     setErrors({});
+   
   };
 
   return (
@@ -135,8 +143,8 @@ const CreateProductForm = () => {
         )} */}
       </>
 
-      <form onSubmit={handleFormSubmit} className="m-x-auto w-full">
-        <div className="flex flex-col gap-8 sm:flex-row lg:gap-16">
+      <form onSubmit={handleFormSubmit} className="m-x-auto w-full ">
+        <div className="flex flex-col gap-10 sm:flex-row lg:gap-16">
           <div className="lg:w-1/2">
             <div className="form-control w-full">
               <label className="label" htmlFor="name">
@@ -155,7 +163,7 @@ const CreateProductForm = () => {
               )}
             </div>
 
-            <div className="form-control w-full">
+            <div className="form-control w-full ">
               <label className="label" htmlFor="description">
                 <span className="label-text">Description</span>
               </label>
@@ -172,17 +180,23 @@ const CreateProductForm = () => {
                 </p>
               )}
             </div>
+        
 
           <button type="submit" className="btn btn-primary mt-3">
           Submit
         </button>
+        {loading && (
+                <div className="mt-[-2.5rem] flex justify-center">
+                  <ImSpinner9 className="animate-spin text-4xl text-primary" />
+                </div>
+              )}
           </div>
 
 
-          <div className="lg:w-1/2">
-            <div className="form-control w-full">
+          <div className="lg:w-1/2  bg-white" >
+            <div className="form-control w-full   ">
               <label className="label" htmlFor="image">
-                <span className="label-text">Upload an Image:</span>
+                <span className="label-text mb-3 ">Upload an Image:</span>
               </label>
               <input
                 type="file"
@@ -195,6 +209,7 @@ const CreateProductForm = () => {
                 <p className="mt-1 text-xs text-red-500">{errors.image}</p>
               )}
             </div>
+          
             {imageUrl && (
               <img
                 src={imageUrl}
@@ -204,7 +219,6 @@ const CreateProductForm = () => {
             )}
           </div>
         </div>
-
       
       </form>
     </>
